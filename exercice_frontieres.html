@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercice — Quel dispositif, exactement ?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#16243B;--bleu:#1F4E79;--bleu-clair:#2E75B6;--or:#B08D57;--creme:#F5F2EB;--card:#FFFFFF;
+  --line:#e3ddd0;--muted:#6B6459;--ok:#2F7A4F;--ko:#B23B3B;--amber:#B5852A;--shadow:0 2px 10px rgba(22,36,59,.07);}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Karla',system-ui,sans-serif;background:var(--creme);color:var(--navy);line-height:1.55;-webkit-user-select:none;user-select:none}
+.wrap{max-width:1000px;margin:0 auto;padding:26px 18px 60px}
+.card-main{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.header{padding:26px 34px 0}
+.chapter-tag{font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--or)}
+.chapter-tag span{opacity:.5}
+h1{font-family:'Fraunces',serif;font-weight:600;font-size:27px;line-height:1.2;margin:8px 0 5px}
+.header p{color:var(--muted);font-size:14.5px}
+.gold-rule{border:none;border-top:2px solid var(--or);width:64px;margin:18px 0 0}
+.body{padding:22px 34px 30px}
+.consigne{background:#FBF7EE;border:1px solid var(--line);border-left:3px solid var(--or);border-radius:8px;padding:14px 17px;font-size:14px;margin-bottom:22px}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.progress{flex:1;min-width:220px}
+.track{height:8px;background:#e6e0d3;border-radius:99px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--bleu-clair);transition:width .3s}
+.plabel{font-size:12.5px;color:var(--muted);margin-top:6px}
+.scorepill{background:var(--navy);color:#fff;border-radius:99px;padding:6px 15px;font-size:13px;font-weight:600}
+.sit{border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:13px;background:#fff}
+.sit .num{font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--or);margin-bottom:6px}
+.sit .txt{font-size:15px;font-weight:700;line-height:1.45;margin-bottom:12px}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+@media(max-width:700px){.opts{grid-template-columns:1fr}}
+.opts label{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;border:1.5px solid var(--line);border-radius:8px;padding:10px 12px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s}
+.opts label:hover{border-color:var(--bleu-clair)}
+.opts label.sel{border-color:var(--bleu);background:#F7FAFD}
+.opts label.good{border-color:var(--ok);background:#F2F8F4}
+.opts label.bad{border-color:var(--ko);background:#FBF3F3}
+.opts label.attendu{border-color:var(--ok);background:#F2F8F4}
+.opts input{margin-top:3px;flex-shrink:0}
+.corr{font-size:12.5px;margin-top:12px;display:none;padding-top:10px;border-top:1px solid var(--line)}
+.corr.show{display:block}
+.corr b{color:var(--navy)}
+.actions{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{border:none;border-radius:9px;padding:13px 24px;font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer}
+.btn-primary{background:var(--bleu);color:#fff}.btn-primary:disabled{background:#c9c2b6;cursor:not-allowed}
+.btn-secondary{background:#fff;color:var(--bleu);border:1.5px solid var(--bleu)}
+.result{display:none;margin-top:24px;border-radius:12px;padding:20px 22px;border:1px solid var(--line);background:#FBF7EE}
+.result.show{display:block}
+.result h2{font-family:'Fraunces',serif;font-size:21px;font-weight:600;margin-bottom:6px}
+.result .big{font-size:34px;font-weight:700;font-family:'Fraunces',serif}
+.result p{font-size:14px;color:var(--muted)}
+.recap{margin-top:16px;display:flex;flex-direction:column;gap:7px}
+.recap-row{display:flex;align-items:center;gap:10px;font-size:13.5px}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.recap-row .lab{flex:1}
+.recap-row .sc{font-weight:700}
+.footer{text-align:center;font-size:11.5px;color:var(--muted);padding:16px 34px 24px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card-main">
+    <div class="header">
+      <div class="chapter-tag">TMK Performances · Conso des acquis 3/3 <span>/</span> Séquence 3</div>
+      <h1>Quel dispositif, exactement ?</h1>
+      <p>10 situations · 5 frontières · exercice d'entraînement, sans note et sans calcul</p>
+      <hr class="gold-rule">
+    </div>
+    <div class="body">
+      <div class="consigne">
+        <b>🎯 Consigne :</b> chaque situation ressemble à deux ou trois autres. Une seule réponse est juste,
+        et <b>les mauvaises ne sont pas absurdes</b> — ce sont celles qu'on entend au téléphone.
+        Rien n'est enregistré. À la fin, le bilan vous dira quelle frontière n'est pas encore installée.
+      </div>
+      <div class="meta">
+        <div class="progress">
+          <div class="track"><div class="fill" id="fill"></div></div>
+          <div class="plabel" id="plabel">0 / 10 réponse donnée</div>
+        </div>
+        <div class="scorepill">Score&nbsp;: <b id="score">—</b> / 10</div>
+      </div>
+      <div id="situations"></div>
+      <div class="actions">
+        <button class="btn btn-primary" id="btn-validate" disabled onclick="valider()">Valider mes réponses</button>
+        <button class="btn btn-secondary" id="btn-reset" onclick="reinitialiser()">↻ Recommencer</button>
+      </div>
+      <div class="result" id="result">
+        <h2 id="res-title">—</h2>
+        <p><span class="big" id="res-score">0 / 10</span></p>
+        <p id="res-msg"></p>
+        <div class="recap" id="recap"></div>
+      </div>
+    </div>
+    <div class="footer">TMK Performances - N° Siret : 49841924100027 - Code NAF : 8559A</div>
+  </div>
+</div>
+
+<script>
+const FRONTIERES = {
+  F1: "Invalidité, inaptitude, incapacité",
+  F2: "Laisser quelque chose",
+  F3: "Affection de longue durée et invalidité",
+  F4: "PER et assurance vie",
+  F5: "Le trimestre",
+};
+
+const SITUATIONS = [
+  {f:"F1", txt:"Le médecin du travail déclare qu'un salarié ne peut plus tenir son poste, mais qu'il pourrait en occuper un autre.",
+   opts:["Une reconnaissance d'inaptitude, qui relève du droit du travail",
+         "Une invalidité de catégorie 1",
+         "Une incapacité permanente partielle",
+         "Une affection de longue durée"],
+   bon:0,
+   expl:"L'inaptitude porte sur l'aptitude à occuper UN poste précis et se prononce en médecine du travail. Elle déclenche une obligation de reclassement, jamais une pension. Le client qui l'apprend croit souvent qu'il va « passer en invalidité » : ce n'est pas le même circuit, ni la même autorité."},
+
+  {f:"F1", txt:"Le médecin-conseil de l'assurance maladie estime que la capacité de travail d'un assuré est réduite d'au moins deux tiers.",
+   opts:["Une inaptitude au poste",
+         "Une invalidité, qui ouvre droit à une pension",
+         "Une incapacité permanente",
+         "Un arrêt de travail de longue durée"],
+   bon:1,
+   expl:"C'est la définition même de l'invalidité : elle est reconnue par l'assurance maladie et porte sur la capacité de travail en général, pas sur un poste. Elle ouvre une pension dont le taux dépend de la catégorie retenue."},
+
+  {f:"F1", txt:"Un salarié garde des séquelles durables d'un accident survenu sur son lieu de travail.",
+   opts:["Une invalidité de catégorie 2",
+         "Une inaptitude définitive",
+         "Une incapacité permanente, relevant de la branche accidents du travail",
+         "Une affection de longue durée"],
+   bon:2,
+   expl:"Les séquelles d'un accident du travail relèvent d'une branche distincte, avec son propre barème et ses propres prestations — une rente ou une indemnité en capital selon le taux retenu. Ce n'est ni de l'invalidité, ni de l'inaptitude."},
+
+  {f:"F2", txt:"Une femme de 58 ans, dont le mari retraité vient de décéder, demande ce qu'elle va percevoir.",
+   opts:["Le capital décès du régime général",
+         "Une pension de réversion, sur deux régimes distincts",
+         "Rien avant 62 ans",
+         "Uniquement l'assurance vie du défunt"],
+   bon:1,
+   expl:"Le mari étant retraité, le capital décès n'est pas ouvert : il suppose une activité, une indemnisation ou une pension d'invalidité au moment du décès. En revanche la réversion l'est, sur le régime de base ET sur la complémentaire — deux taux, deux jeux de conditions, deux demandes."},
+
+  {f:"F2", txt:"Un homme décède trois semaines après avoir été mis en invalidité. Sa veuve vous appelle.",
+   opts:["Le capital décès peut être demandé, sous conditions et dans un délai",
+         "Aucune prestation n'est due, il n'était plus salarié",
+         "Une rente d'ayant droit lui sera versée automatiquement",
+         "Seule l'assurance vie interviendra"],
+   bon:0,
+   expl:"Être titulaire d'une pension d'invalidité au moment du décès ouvre le droit au capital décès du régime général. Mais rien ne se déclenche seul : sans demande dans les délais, le droit s'éteint. C'est la prestation la plus souvent perdue faute d'avoir été réclamée."},
+
+  {f:"F2", txt:"Un client souhaite qu'une somme précise revienne à sa nièce, sans passer par sa succession.",
+   opts:["Une clause dans son testament",
+         "Une donation de son vivant",
+         "La clause bénéficiaire d'un contrat d'assurance vie",
+         "Une réversion désignée"],
+   bon:2,
+   expl:"L'assurance vie est le seul des trois dispositifs de transmission que le client organise lui-même, et le seul qui se dénoue hors succession selon la clause bénéficiaire. Le capital décès et la réversion, eux, obéissent à des règles fixées par la loi : le client ne choisit pas qui les reçoit."},
+
+  {f:"F3", txt:"Un client diabétique travaille normalement à temps plein. Ses soins liés au diabète lui coûtent cher.",
+   opts:["Il devrait demander une invalidité de catégorie 1",
+         "Il relève d'une affection de longue durée, qui exonère du ticket modérateur sur ces soins",
+         "Il doit changer de contrat complémentaire",
+         "Il n'a droit à rien tant qu'il travaille"],
+   bon:1,
+   expl:"L'affection de longue durée traite une dépense, pas un revenu. Un client peut en bénéficier tout en travaillant à temps plein — les deux dispositifs sont indépendants. Et l'exonération porte sur le ticket modérateur seul : participations, franchises et dépassements restent dus."},
+
+  {f:"F3", txt:"Une cliente en invalidité de catégorie 2 vous dit qu'elle ne paie plus rien chez le médecin.",
+   opts:["C'est exact, l'invalidité exonère de tout",
+         "C'est inexact : l'invalidité remplace un revenu, elle ne rembourse pas de soins",
+         "C'est exact pendant les deux premières années",
+         "Cela dépend de sa catégorie d'invalidité"],
+   bon:1,
+   expl:"L'invalidité et l'affection de longue durée ne répondent pas à la même question. L'une remplace un revenu, l'autre exonère d'une part de dépense. Être en invalidité ne dispense de rien chez le médecin — même si les deux coexistent souvent dans les faits, et c'est ce qui entretient la confusion."},
+
+  {f:"F4", txt:"Un client de 45 ans, fortement imposé, veut placer 8 000 € et réduire son revenu imposable dès cette année.",
+   opts:["Un contrat d'assurance vie",
+         "Un plan d'épargne retraite",
+         "Un compte-titres",
+         "Un livret d'épargne réglementé"],
+   bon:1,
+   expl:"Seul le PER permet de déduire le versement du revenu imposable. Mais la déduction se paie à la sortie : l'opération n'est gagnante que si sa tranche marginale est plus basse à la retraite. Et l'argent est bloqué jusque-là — ce qu'il faut lui dire dans la même phrase."},
+
+  {f:"F5", txt:"Un salarié en arrêt de travail indemnisé depuis huit mois demande si cette période comptera pour sa retraite.",
+   opts:["Non, seules les périodes travaillées comptent",
+         "Oui, les périodes d'arrêt indemnisé permettent de valider des trimestres",
+         "Oui, mais uniquement pour la retraite complémentaire",
+         "Cela dépend de la durée totale de l'arrêt"],
+   bon:1,
+   expl:"Les périodes d'arrêt de travail indemnisé et d'invalidité sont des périodes assimilées : elles valident des trimestres sans cotisation. C'est le pont entre la prévoyance et la retraite, et la réponse la plus utile qu'un conseiller puisse donner à un client qui pense que sa carrière s'est arrêtée."},
+];
+
+let reponses = {}, valide = false;
+function el(id){ return document.getElementById(id); }
+
+function render(){
+  el("situations").innerHTML = SITUATIONS.map(function(s, i){
+    const opts = s.opts.map(function(o, j){
+      return '<label id="lab_' + i + '_' + j + '"><input type="radio" name="q' + i + '" id="r_' + i + '_' + j + '"><span>' + o + '</span></label>';
+    }).join("");
+    return '<div class="sit"><div class="num">Situation ' + (i + 1) + '</div><div class="txt">' + s.txt + '</div>' +
+           '<div class="opts">' + opts + '</div><div class="corr" id="corr_' + i + '"></div></div>';
+  }).join("");
+  SITUATIONS.forEach(function(s, i){
+    s.opts.forEach(function(o, j){
+      el("r_" + i + "_" + j).addEventListener("change", function(){
+        if(valide) return;
+        reponses[i] = j;
+        s.opts.forEach(function(_, k){ el("lab_" + i + "_" + k).classList.toggle("sel", k === j); });
+        maj();
+      });
+    });
+  });
+  maj();
+}
+function maj(){
+  const n = Object.keys(reponses).length;
+  el("fill").style.width = (n / SITUATIONS.length * 100) + "%";
+  el("plabel").textContent = n + " / " + SITUATIONS.length + " réponse" + (n > 1 ? "s données" : " donnée");
+  el("btn-validate").disabled = valide || n !== SITUATIONS.length;
+}
+
+function valider(){
+  valide = true;
+  let score = 0;
+  const parF = {};
+  Object.keys(FRONTIERES).forEach(function(f){ parF[f] = {ok:0, total:0}; });
+  SITUATIONS.forEach(function(s, i){
+    parF[s.f].total++;
+    const donne = reponses[i];
+    const bon = donne === s.bon;
+    if(bon){ score++; parF[s.f].ok++; }
+    s.opts.forEach(function(_, j){
+      const lab = el("lab_" + i + "_" + j);
+      lab.classList.remove("sel");
+      el("r_" + i + "_" + j).disabled = true;
+      if(j === s.bon) lab.classList.add(bon ? "good" : "attendu");
+      else if(j === donne) lab.classList.add("bad");
+    });
+    const corr = el("corr_" + i);
+    corr.className = "corr show";
+    corr.innerHTML = (bon ? "✓ " : "✗ ") + "<b>" + s.opts[s.bon] + "</b> — " + s.expl;
+  });
+  el("score").textContent = score;
+  el("res-score").textContent = score + " / " + SITUATIONS.length;
+  let t, m;
+  if(score === SITUATIONS.length){ t = "Sans faute."; m = "Les cinq frontières sont installées. Les cas de la journée vont pouvoir servir à autre chose qu'à les découvrir."; }
+  else if(score >= 8){ t = "Presque."; m = "Regardez le bilan par frontière : une seule vous manque, et elle reviendra dans les cas."; }
+  else if(score >= 5){ t = "À consolider."; m = "Plusieurs dispositifs se confondent encore. Reprenez les corrections avant le premier cas."; }
+  else { t = "À reprendre."; m = "Signalez-le au formateur : les trois cas de la journée supposent ces distinctions acquises."; }
+  el("res-title").textContent = t;
+  el("res-score").style.color = score >= 8 ? "var(--ok)" : (score >= 5 ? "var(--amber)" : "var(--ko)");
+  el("res-msg").textContent = m;
+  el("recap").innerHTML = Object.keys(FRONTIERES).map(function(f){
+    const s = parF[f];
+    const c = s.ok === s.total ? "var(--ok)" : (s.ok === 0 ? "var(--ko)" : "var(--amber)");
+    return '<div class="recap-row"><span class="dot" style="background:' + c + '"></span>' +
+           '<span class="lab">' + FRONTIERES[f] + '</span><span class="sc">' + s.ok + ' / ' + s.total + '</span></div>';
+  }).join("");
+  el("result").classList.add("show");
+  el("btn-validate").disabled = true;
+  el("result").scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+function reinitialiser(){
+  valide = false; reponses = {};
+  el("score").textContent = "—";
+  el("result").classList.remove("show");
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+render();
+
+["copy","cut","contextmenu","dragstart"].forEach(function(ev){ document.addEventListener(ev, function(e){ e.preventDefault(); }); });
+document.addEventListener("keydown", function(e){
+  if((e.ctrlKey || e.metaKey) && ["c","x","u","s","p"].indexOf(e.key.toLowerCase()) > -1){ e.preventDefault(); }
+});
+</script>
+</body>
+</html>
